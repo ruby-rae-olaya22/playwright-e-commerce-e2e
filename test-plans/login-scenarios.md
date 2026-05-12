@@ -15,8 +15,7 @@
 | P-03 | Login after a previous logout | Valid creds → Logout → Valid creds | Successful re-login, dashboard loads |
 | P-04 | Login with username having leading/trailing spaces | `" Admin "` / `admin123` | ⚠️ Verify behavior — may succeed (trimmed) or fail |
 | P-05 | Verify "Forgot your password?" link navigates correctly | Click link | Navigates to `/requestPasswordResetCode`, "Reset Password" form visible |
-| P-06 | Verify page title is "OrangeHRM" | — | `page.title()` === `"OrangeHRM"` |
-| P-07 | Verify OrangeHRM logo is visible on login page | — | Logo image is visible |
+| P-05 | "OrangeHRM Inc." link navigates to business website' | — | Business website of OrangeHRM Inc. is displayed |
 | P-08 | Verify demo credentials hint is displayed | — | Text box shows `Username : Admin` and `Password : admin123` |
 
 ---

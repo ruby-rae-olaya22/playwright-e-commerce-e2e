@@ -10,6 +10,7 @@ export class LoginPage {
   readonly usernameRequiredError: Locator;
   readonly passwordRequiredError: Locator;
   readonly forgotPasswordLink: Locator;
+  readonly orangeHRMLink: Locator;
   readonly logo: Locator;
   readonly credentialHints: Locator;
   readonly versionText: Locator;
@@ -19,6 +20,9 @@ export class LoginPage {
   readonly resetPasswordUsernameInput: Locator;
   readonly resetPasswordButton: Locator;
   readonly resetPasswordCancelButton: Locator;
+  readonly businessWebsiteHeader: Locator;
+  readonly businessWebsiteLink: string;
+  readonly clientBanner: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -33,6 +37,7 @@ export class LoginPage {
 
     // Page element locators
     this.forgotPasswordLink = page.locator('.orangehrm-login-forgot-header');
+    this.orangeHRMLink = page.locator('.orangehrm-copyright a');
     this.logo = page.locator('.orangehrm-login-branding img');
     this.credentialHints = page.locator('.orangehrm-login-slot');
     this.versionText = page.locator('.orangehrm-copyright-wrapper p').first();
@@ -44,6 +49,13 @@ export class LoginPage {
     this.resetPasswordUsernameInput = page.getByRole('textbox', { name: 'username' });
     this.resetPasswordButton = page.getByRole('button', { name: 'Reset Password' });
     this.resetPasswordCancelButton = page.getByRole('button', { name: 'Cancel' });
+
+    // Business website locators
+    this.businessWebsiteHeader = page.locator('.page-title h1');
+    this.businessWebsiteLink = 'https://orangehrm.com/';
+
+    // Logged-in user locators
+    this.clientBanner = page.getByRole('link', { name: 'client brand banner' })
   }
 
   // Actions
@@ -73,6 +85,10 @@ export class LoginPage {
 
   async navigateToForgotPassword() {
     await this.forgotPasswordLink.click();
+  }
+
+  async navigateToOrangeHRM() {
+    await this.orangeHRMLink.click();
   }
 
   async logout() {

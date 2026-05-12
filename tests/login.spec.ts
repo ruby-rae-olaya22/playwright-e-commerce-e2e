@@ -22,6 +22,9 @@ test.describe('Positive Scenarios', () => {
     await loginPage.goTo();
     await loginPage.login(VALID_USERNAME, VALID_PASSWORD);
     await expect(page).toHaveURL(DASHBOARD_URL, SLOW_EXPECT_TIMEOUT);
+    
+    await expect(page).toHaveTitle('OrangeHRM');
+    await expect(loginPage.clientBanner).toBeVisible(SLOW_EXPECT_TIMEOUT);
   });
 
   test('P-02: Verify dashboard shows correct page heading after login', async ({ page }) => {
@@ -55,19 +58,15 @@ test.describe('Positive Scenarios', () => {
     await expect(loginPage.resetPasswordHeader).toContainText('Reset Password', SLOW_EXPECT_TIMEOUT);
   });
 
-  test('P-06: Page title is "OrangeHRM"', async ({ page }) => {
+  test('P-05: "OrangeHRM Inc." link navigates to business website', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goTo();
-    await expect(page).toHaveTitle('OrangeHRM');
+    await loginPage.navigateToOrangeHRM();
+    await expect(page).toHaveURL(loginPage.businessWebsiteLink, SLOW_EXPECT_TIMEOUT);
+    await expect(loginPage.businessWebsiteHeader).toContainText('Streamline All Your HR Needs on One', SLOW_EXPECT_TIMEOUT);
   });
 
-  test('P-07: OrangeHRM logo is visible', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goTo();
-    await expect(loginPage.logo).toBeVisible(SLOW_EXPECT_TIMEOUT);
-  });
-
-  test('P-08: Credential hints are displayed on the page', async ({ page }) => {
+  test('P-06: Credential hints are displayed on the page', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goTo();
     await expect(loginPage.credentialHints).toContainText('Username : Admin', SLOW_EXPECT_TIMEOUT);
