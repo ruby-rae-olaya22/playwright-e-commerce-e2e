@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login';
+import { DashboardPage } from '../pages/dashboard_page';
 import dotenv from 'dotenv';
 import { beforeEach } from 'node:test';
 
@@ -26,5 +27,16 @@ test.describe('Positive Scenarios', () => {
 
         await expect(page).toHaveTitle('OrangeHRM');
         await expect(loginPage.clientBanner).toBeVisible(SLOW_EXPECT_TIMEOUT);
+    });
+
+    test('P-02 Verify dashboard header and user menu', async ({ page }) => {
+        await expect(page.locator('h6')).toContainText('Dashboard', SLOW_EXPECT_TIMEOUT);
+
+        const dashboardPage = new DashboardPage(page);
+        await expect(dashboardPage.user_profile_icon).toBeVisible(SLOW_EXPECT_TIMEOUT);
+        await dashboardPage.user_profile_icon.click();
+
+        await expect(dashboardPage.user_profile_menu).toBeVisible(SLOW_EXPECT_TIMEOUT);
+        await expect(dashboardPage.user_profile_menu).toHaveText(['About', 'Support', 'Change Password', 'Logout'], SLOW_EXPECT_TIMEOUT);
     });
 });
